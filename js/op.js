@@ -3,9 +3,9 @@
   with (oWindow.document) {
     write("<html>");
     write("<head>");
-    write("<title>Sakura Gakuin Sort: Raw Text Results<\/title>");
+    write("<title>NEMOPHILA Sort: Raw Text Results<\/title>");
     write("<style>");
-		write("body { background-color: #FFD1DC; color: #000; font-family: \"Helvetica Neue\",Helvetica,Arial,sans-serif; font-size: 15px; }");
+		write("body { background-color: #000; color: #fff; font-family: \"Helvetica Neue\",Helvetica,Arial,sans-serif; font-size: 15px; }");
 		write("<\/style>");
     write("<\/head>");
     write("<body>");

@@ -1,4 +1,4 @@
-﻿// 2008/7/3 Scripted by K-Factory@migiwa
+// 2008/7/3 Scripted by K-Factory@migiwa
 // 2009/1/27 Modified by K-Factory@migiwa
 
 // *****************************************************************************
@@ -27,9 +27,13 @@ var maxRows = 35;
 // * タイトル情報（編集可能。最後の行に”,”を付けないようにしてください）
 var int_Colspan = 3;
 var ary_TitleData = [
-  "Current Members",
-  "Graduated Members",
-  "BABYMETAL"
+  "REVIVE",
+  "Seize the Fate",
+  "EVOLVE",
+  "The Initial Impulse",
+  "OIRAN (Single)",
+  "雷霆 -RAITEI- (Single)",
+  "DISSENSION (Single)"
 ];
 
 // * キャラクター情報（編集可能。最後の行に”,”を付けないようにしてください）
@@ -39,51 +43,56 @@ var ary_TitleData = [
 //   "キャラクター名", "画像（空白の場合、キャラクター名が使用されます）"
 //                                      [1,2,3,4,5,6,7,8,9,
 var ary_CharacterData = [
-  [1, "Aritomo Tsugumi",    [1,0,0,0,0,0], "current/members_idx_aritomo.jpg"],
-  [1, "Mori Momoe",         [1,0,0,0,0,0], "current/members_idx_mori.jpg"],
-  [1, "Fujihira Kano",      [1,0,0,0,0,0], "current/members_idx_fujihira.jpg"],
-  [1, "Yoshida Soyoka",     [1,0,0,0,0,0], "current/members_idx_yoshida.jpg"],
-  [1, "Yagi Miki",          [1,0,0,0,0,0], "current/members_idx_yagi.jpg"],
-  [1, "Tanaka Miku",        [1,0,0,0,0,0], "current/members_idx_tanaka.jpg"], 
-  [1, "Nozaki Yume",        [1,0,0,0,0,0], "current/members_idx_nozaki.jpg"],   
-  [1, "Nonaka Kokona",      [1,0,0,0,0,0], "current/members_idx_nonaka.jpg"],   
-  [1, "Shiratori Sana",     [1,0,0,0,0,0], "current/members_idx_shiratori.jpg"],
-  [1, "Satou Neo",          [1,0,0,0,0,0], "current/members_idx_sato.jpg"],
-  [1, "Todaka Miko",        [1,0,0,0,0,0], "current/members_idx_todaka.jpg"],
-  [1, "Kimura Sakia",       [1,0,0,0,0,0], "current/members_idx_kimura.jpg"],    
-  [1, "Asou Maaya",         [0,1,0,0,0,0], "graduated/members_idx_asou.jpg"],  
-  [1, "Hidaka Marin",       [0,1,0,0,0,0], "graduated/members_idx_hidaka.jpg"],  
-  [1, "Shintani Yuzumi",    [0,1,0,0,0,0], "graduated/members_idx_shintani.jpg"],  
-  [1, "Yamaide Aiko",       [0,1,0,0,0,0], "graduated/members_idx_yamaide.jpg"],
-  [1, "Okada Megumi",       [0,1,0,0,0,0], "graduated/members_idx_okada.jpg"],
-  [1, "Okazaki Momoko",     [0,1,0,0,0,0], "graduated/members_idx_okazaki.jpg"], 
-  [1, "Kurosawa Mirena",    [0,1,0,0,0,0], "graduated/members_idx_kurosawa.jpg"],
-  [1, "Kurashima Sara",     [0,1,0,0,0,0], "graduated/members_idx_kurashima.jpg"],
-  [1, "Isono Rinon",        [0,1,0,0,0,0], "graduated/graduates_idx_isono.jpg"],
-  [1, "Ooga Saki",          [0,1,0,0,0,0], "graduated/graduates_idx_ooga.jpg"],
-  [1, "Shirai Saki",        [0,1,0,0,0,0], "graduated/graduates_idx_shirai.jpg"],
-  [1, "Taguchi Hana",       [0,1,0,0,0,0], "graduated/graduates_idx_taguchi.jpg"],
-  [1, "Mizuno Yui",         [0,1,0,0,0,0], "graduated/graduates_idx_mizuno.jpg"],
-  [1, "Kikuchi Moa",        [0,1,0,0,0,0], "graduated/graduates_idx_kikuchi.jpg"],
-  [1, "Honjo Yunano",       [0,1,0,0,0,0], "graduated/graduates_idx_honjo.jpg"],
-  [1, "Sugisaki Nene",      [0,1,0,0,0,0], "graduated/graduates_idx_sugisaki.jpg"],
-  [1, "Sato Hinata",        [0,1,0,0,0,0], "graduated/graduates_idx_sato.jpg"],
-  [1, "Iida Raura",         [0,1,0,0,0,0], "graduated/graduates_idx_iida.jpg"],
-  [1, "Horiuchi Marina",    [0,1,0,0,0,0], "graduated/graduates_idx_horiuchi.jpg"],
-  [1, "Sugimoto Mariri",    [0,1,0,0,0,0], "graduated/graduates_idx_sugimoto.jpg"],
-  [1, "Nakamoto Suzuka",    [0,1,0,0,0,0], "graduated/graduates_idx_nakamoto.jpg"],
-  [1, "Muto Ayami",         [0,1,0,0,0,0], "graduated/graduates_idx_mutou.jpg"],
-  [1, "Matsui Airi",        [0,1,0,0,0,0], "graduated/graduates_idx_matsui.jpg"],
-  [1, "Miyoshi Ayaka",      [0,1,0,0,0,0], "graduated/graduates_idx_miyoshi.jpg"],
-  [1, "SU-METAL",           [0,0,1,0,0,0], "bm/su.jpg"],
-  [1, "YUIMETAL",           [0,0,1,0,0,0], "bm/yui.jpg"],
-  [1, "MOAMETAL",           [0,0,1,0,0,0], "bm/moa.jpg"],
-  [1, "Aoyama Hideki",      [0,0,1,0,0,0], "bm/aoyama.jpg"],
-  [1, "BOH",                [0,0,1,0,0,0], "bm/boh.jpg"],
-  [1, "Fujioka Mikio",      [0,0,1,0,0,0], "bm/fujioka.jpg"],
-  [1, "Ohmura Takayoshi",   [0,0,1,0,0,0], "bm/ohmura.jpg"],
-  [1, "Leda",               [0,0,1,0,0,0], "bm/leda.jpg"],
-  [1, "Maeta Yuuya",        [0,0,1,0,0,0], "bm/maeta.jpg"],
-  [1, "ISAO",               [0,0,1,0,0,0], "bm/isao.jpg"],
-  [1, "Koba",               [0,0,1,0,0,0], "bm/koba.jpg"]
+  [1, "REVIVE",                                           [1,0,0,0,0,0,0], "albums/revive.jpg"],
+  [1, "DISSENSION",                                       [1,0,0,0,0,0,0], "albums/revive.jpg"],
+  [1, "鬼灯 (Hoozuki)",                                    [1,0,0,0,0,0,0], "albums/revive.jpg"],
+  [1, "HYPNOSIS",                                         [1,0,0,0,0,0,0], "albums/revive.jpg"],
+  [1, "GAME OVER",                                        [1,0,0,0,0,0,0], "albums/revive.jpg"],
+  [1, "Life REVIVE Ver.",                                 [1,0,0,0,0,0,0], "albums/revive.jpg"],
+  [1, "SORAI",                                            [1,0,0,0,0,0,0], "albums/revive.jpg"],
+  [1, "Rollin' Rollin'",                                  [1,0,0,0,0,0,0], "albums/revive.jpg"],
+  [1, "Change the world",                                 [1,0,0,0,0,0,0], "albums/revive.jpg"],
+  [1, "雷霆 -RAITEI-",                                     [1,0,0,0,0,0,0], "albums/revive.jpg"],
+  [1, "OIRAN REVIVE Ver.",                                [1,0,0,0,0,0,0], "albums/revive.jpg"],
+    
+  [1, "Seize the Fate",                                   [0,1,0,0,0,0,0], "albums/stf.jpg"],
+  [1, "炎天 -ENTEN-",                                      [0,1,0,0,0,0,0], "albums/stf.jpg"],
+  [1, "ZEN",                                              [0,1,0,0,0,0,0], "albums/stf.jpg"],
+  [1, "Back into the wild",                               [0,1,0,0,0,0,0], "albums/stf.jpg"],
+  [1, "Rock'n'Roll Is?",                                  [0,1,0,0,0,0,0], "albums/stf.jpg"],
+  [1, "STYLE",                                            [0,1,0,0,0,0,0], "albums/stf.jpg"],
+  [1, "Waiting for you",                                  [0,1,0,0,0,0,0], "albums/stf.jpg"],
+  [1, "now I here",                                       [0,1,0,0,0,0,0], "albums/stf.jpg"],
+  [1, "A Ray Of Light",                                   [0,1,0,0,0,0,0], "albums/stf.jpg"],
+  [1, "徒花 -ADABANA-",                                    [0,1,0,0,0,0,0], "albums/stf.jpg"],
+  [1, "Soaring ~to be continued~",                        [0,1,0,0,0,0,0], "albums/stf.jpg"],
+
+  [1, "Enigma",                                           [0,0,1,0,0,0,0], "albums/evolve.jpg"],
+  [1, "RISE",                                             [0,0,1,0,0,0,0], "albums/evolve.jpg"],
+  [1, "OSKR",                                             [0,0,1,0,0,0,0], "albums/evolve.jpg"],
+  [1, "AMA-TE-RAS",                                       [0,0,1,0,0,0,0], "albums/evolve.jpg"],
+  [1, "ODYSSEY",                                          [0,0,1,0,0,0,0], "albums/evolve.jpg"],
+  [1, "ALIVE",                                            [0,0,1,0,0,0,0], "albums/evolve.jpg"],
+  [1, "Night Flight",                                     [0,0,1,0,0,0,0], "albums/evolve.jpg"],
+  [1, "Justice",                                          [0,0,1,0,0,0,0], "albums/evolve.jpg"],
+  [1, "Hammer Down",                                      [0,0,1,0,0,0,0], "albums/evolve.jpg"],
+  [1, "YELL ～軌跡～",                                     [0,0,1,0,0,0,0], "albums/evolve.jpg"],
+
+  [1, "(Sic)",                                            [0,0,0,1,0,0,0], "albums/impulse.jpg"],
+  [1, "Sugar",                                            [0,0,0,1,0,0,0], "albums/impulse.jpg"],
+  [1, "Master of Puppets",                                [0,0,0,1,0,0,0], "albums/impulse.jpg"],
+  [1, "Stuck (feat. N∀OKI & NOBUYA)",                     [0,0,0,1,0,0,0], "albums/impulse.jpg"],
+    
+  [1, "OIRAN - OIRAN Version",                            [0,0,0,0,1,0,0], "albums/oiran.jpg"],
+  [1, "Monsters - OIRAN Version",                         [0,0,0,0,1,0,0], "albums/oiran.jpg"],
+  [1, "Life - OIRAN Version",                             [0,0,0,0,1,0,0], "albums/oiran.jpg"],
+
+  [1, "OIRAN -Instrumental-",                             [0,0,0,0,0,1,0], "albums/raitei.jpg"],
+  [1, "MONSTERS -Instrumental-",                          [0,0,0,0,0,1,0], "albums/raitei.jpg"],
+  [1, "Life -Instrumental-",                              [0,0,0,0,0,1,0], "albums/raitei.jpg"],
+    
+  [1, "雷霆 -RAITEI- -Instrumental-",                      [0,0,0,0,0,0,1], "albums/dissension.jpg"],
+  [1, "SORAI -Instrumental-",                             [0,0,0,0,0,0,1], "albums/dissension.jpg"],
+  [1, "Fighter",                                          [0,0,0,0,0,0,1], "albums/dissension.jpg"],
+
 ];
