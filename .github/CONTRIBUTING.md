@@ -6,7 +6,7 @@ This is a fork of [Sakura Sort](https://github.com/sakurasort/sakurasort.github.
 
 This repo uses the discography found on the [NEMOPHILA Discography page](https://nemophila.tokyo/en/discography/) and in the NEMOPHILA Discord server.
 
-Join the [Contributors team](https://github.com/orgs/nemophilasort/teams/contributors) to get started.
+Fork this repository to contribute.
 
 # Publishing Changes
 
