@@ -8,6 +8,10 @@ This repo uses the discography found on the [NEMOPHILA Discography page](https:/
 
 Join the [Contributors team](https://github.com/orgs/nemophilasort/teams/contributors) to get started.
 
+# Publishing Changes
+
+All check-ins to `main` are automatically published via GitHub Actions
+
 # Ground Rules
 
 * Only add NEMOPHILA songs to the song list when adding songs.
