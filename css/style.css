@@ -18,7 +18,7 @@ a, a:hover {
 #btn-rawtext {
     cursor: pointer;
     color: #000000;
-    background-color: #3593CE;
+    background-color: #000000;
     width: 150px;
     padding: 2px;
     border: 3px solid #FFFFFF;
@@ -32,7 +32,7 @@ a, a:hover {
     height: 50px;
     top: 0;
     left: 0;
-    background-color: #3593CE;
+    background-color: #000000;
     z-index: 1;
     text-align: center;
     border-bottom-color: #FFFFFF;
@@ -64,7 +64,7 @@ a, a:hover {
 }
 
 .resTable thead {
-    background-color: #000038;
+    background-color: #000000;
     color: #FFFFFF;
 }
 
