@@ -1,4 +1,3 @@
-
 body {
     background-color: #000000;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
@@ -72,8 +71,12 @@ a, a:hover {
     background-color: #000000;
 }
 
-
 img {
     height: 200px;
     width: 200px;
+}
+
+#optTable {
+    text-align: left;
+    width: 600px;
 }
