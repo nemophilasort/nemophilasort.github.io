@@ -34,7 +34,7 @@ var ary_TitleData = [
   "OIRAN (Single)",
   "雷霆 -RAITEI- (Single)",
   "DISSENSION (Single)",
-  "G.O.D. (Single)"
+  "Beautiful days"
 ];
 
 // * キャラクター情報（編集可能。最後の行に”,”を付けないようにしてください）
@@ -96,6 +96,8 @@ var ary_CharacterData = [
   [1, "SORAI -Instrumental-",                             [0,0,0,0,0,0,1,0], "albums/dissension.jpg"],
   [1, "Fighter",                                          [0,0,0,0,0,0,1,0], "albums/dissension.jpg"],
 
-  [1, "G.O.D.",                                           [0,0,0,0,0,0,0,1], "albums/god.jpg"],
+  [1, "Beautiful days",                                   [0,0,0,0,0,0,0,1], "albums/beautifuldays.jpg"],
+  [1, "G.O.D.",                                           [0,0,0,0,0,0,0,1], "albums/beautifuldays.jpg"],
+  [1, "PROGRESS",                                         [0,0,0,0,0,0,0,1], "albums/beautifuldays.jpg"],
 
 ];
