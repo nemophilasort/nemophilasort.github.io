@@ -1,0 +1,6 @@
+node_modules
+package-lock.json
+img/
+js/vendor/
+*.min.js
+*.min.css

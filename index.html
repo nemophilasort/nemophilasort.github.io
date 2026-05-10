@@ -1,97 +1,130 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<!doctype html>
 <html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="Content-Script-Type" content="text/javascript">
-    <meta http-equiv="Content-Style-Type" content="text/css">
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="Cache-Control" content="no-cache">
-    <meta name="author" content="kama">
-    <title>NEMOPHILA Song Sort</title>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/mod_k-factory.js"></script>
-    <script type="text/javascript" src="js/fnc_main_v3.js"></script>
-    <script type="text/javascript" src="js/fnc_data_v2.js"></script>
-    <script type="text/javascript" src="js/op.js"></script>
-    <script type="text/javascript" src="js/src.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/kcs_style.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="shortcut icon" href="img/favicon.ico"/>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'"
+    />
+    <title>NEMOPHILA Song Sorter</title>
+    <meta name="description" content="Sort songs from NEMOPHILA head-to-head until a final ranking emerges." />
 
-<body onload="startup()">
+    <!-- Open Graph / Discord, Slack, Facebook, etc. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="NEMOPHILA Song Sorter" />
+    <meta property="og:title" content="NEMOPHILA Song Sorter" />
+    <meta property="og:description" content="Sort songs from NEMOPHILA head-to-head until a final ranking emerges." />
+    <meta property="og:url" content="https://nemophilasort.github.io/" />
+    <meta property="og:image" content="https://nemophilasort.github.io/img/newlogo.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="1200" />
+    <meta property="og:image:alt" content="NEMOPHILA logo" />
 
-<div id="menubar">
-    <div class="menu-item menu-link" id="menu-restart"><p>Restart</p></div>
-    <div class="menu-item"><p>Battle No. <span id="lblCount">-</span></p></div>
-    <div class="menu-item"><p><span id="lblProgress">0</span>% sorted</p></div>
-    <a href="https://github.com/sakurasort/sakurasort.github.io">
-        <div class="menu-item menu-link menu-right"><p>A fork
-            of Sakurasort</p></div>
-    </a>
-    <a href="https://github.com/nemophilasort/nemophilasort.github.io">
-        <div class="menu-item menu-link menu-right"><p>Github</p></div>
-    </a>
-    <a href="https://nemophila.tokyo/">
-        <div class="menu-item menu-link menu-right"><p>NEMOPHILA Official Site</p></div>
-    </a>
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NEMOPHILA Song Sorter" />
+    <meta name="twitter:description" content="Sort songs from NEMOPHILA head-to-head until a final ranking emerges." />
+    <meta name="twitter:image" content="https://nemophilasort.github.io/img/newlogo.jpg" />
 
-</div>
+    <!-- Sets the colored bar on Discord embeds -->
+    <meta name="theme-color" content="#ec86a6" />
 
-<div align="center">
-    <table id="mainTable">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="img/favicon.ico" />
+    <link rel="apple-touch-icon" href="img/favicon.png" />
+  </head>
+  <body>
+    <main>
+      <section id="phase-select" class="phase">
+        <div class="phase-header">
+          <div class="phase-header__text">
+            <h1 class="phase__title">NEMOPHILA Song Sorter</h1>
+            <p class="phase__intro">Pick the albums you want included, then sort songs head-to-head until a final ranking emerges.</p>
+            <p class="phase__note">Duplicate songs will be ignored</p>
+          </div>
+          <a class="official-link" href="https://nemophila.tokyo/" rel="noopener" target="_blank">
+            <img src="img/newlogo.jpg" alt="" class="official-link__logo" />
+            <span class="official-link__label">Official Site</span>
+            <span class="official-link__arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
 
-        <thead>
-        <tr>
-            <td colspan="3" class="tb_header"><br><br><br></td>
-        </tr>
-        </thead>
+        <div class="albums-header">
+          <h2 class="phase__heading">Albums</h2>
+          <div class="albums-header__actions">
+            <button type="button" id="selectAll" class="btn btn--ghost btn--small">Deselect all</button>
+            <div id="sortToggle" class="view-toggle" role="group" aria-label="Sort albums by date">
+              <button type="button" data-sort="asc" class="view-toggle__btn" aria-pressed="false">Oldest first</button>
+              <button type="button" data-sort="desc" class="view-toggle__btn is-active" aria-pressed="true">Newest first</button>
+            </div>
+          </div>
+        </div>
+        <div id="albumGrid" class="albums"></div>
 
-        <tbody>
-        <tr>
-            <td id="fldLeft" onclick="fnc_Sort(-1);" rowspan="2"><img src="img/newlogo.jpg" alt="NEMOPHILA flower logo">
-            </td>
-            <td style="border: 0; width: 7px;" rowspan="2"></td>
-            <td id="fldMiddleT" onclick="fnc_Sort(0);"><p>NEMOPHILA</p><p>Song Sort</p></td>
-            <td style="border: 0; width: 7px;" rowspan="2"></td>
-            <td id="fldRight" onclick="fnc_Sort(1);" rowspan="2"><img src="img/newlogo.jpg" alt="NEMOPHILA flower logo">
-            </td>
-        </tr>
-        <tr>
-            <td id="fldMiddleB" onclick="fnc_Undo();">Click to start!</td>
-        </tr>
-        </tbody>
+        <div class="select-actions">
+          <span class="select-actions__count" id="selectionCount"></span>
+          <button type="button" id="startBtn" class="btn btn--primary">Start Sorting →</button>
+        </div>
+      </section>
 
-        <tfoot>
-        <tr>
-            <td colspan="3">
-                <div align="left">
-                    <input id="optImage" checked="checked" type="checkbox">
-                    <span>Display images while sorting.</span>
-                </div>
-            </td>
-        </tr>
-        </tfoot>
+      <section id="phase-sort" class="phase" hidden>
+        <div class="progress">
+          <div class="progress__stats">
+            <span>Battle <strong id="battle">—</strong></span>
+            <span><strong id="progressPct">0</strong>% sorted</span>
+          </div>
+          <progress id="progressBar" value="0" max="100"></progress>
+        </div>
+        <p class="prompt">Which song do you prefer?</p>
+        <div class="cards">
+          <button id="leftCard" type="button" class="card"></button>
+          <div class="cards__middle">
+            <button id="tieBtn" type="button" class="btn btn--ghost">Tie!</button>
+            <button id="undoBtn" type="button" class="btn btn--ghost">Undo last</button>
+            <button id="restartSortBtn" type="button" class="btn btn--ghost btn--small">Restart</button>
+          </div>
+          <button id="rightCard" type="button" class="card"></button>
+        </div>
+      </section>
 
-    </table>
-</div>
-<br>
-<br>
-<div align="center"><span style="font-size: 20px">Select Categories</span></div>
-<br/>
-<table id="optTable" align="center"></table>
-<br>
+      <section id="phase-results" class="phase" hidden>
+        <div class="results-toolbar">
+          <div class="view-toggle" role="group" aria-label="Result view">
+            <button type="button" data-view="detailed" class="view-toggle__btn is-active" aria-pressed="true">Detailed</button>
+            <button type="button" data-view="compact" class="view-toggle__btn" aria-pressed="false">Compact</button>
+          </div>
+        </div>
 
-<div id="ranTable" class="tb" style="display:none;" align="center">
-    <div>
-        <form action="#">
-            <input id="btn-rawtext" value="Raw Text Results" onclick="OpenWnd()" type="button">
-        </form>
-    </div>
-</div>
+        <div id="resultsCard" class="results-card" data-view="detailed">
+          <header class="results-card__header">
+            <h2 class="results-card__title">My NEMOPHILA Song Ranking</h2>
+            <p class="results-card__subtitle">nemophila.tokyo · nemophilasort.github.io</p>
+          </header>
+          <div id="podium" class="podium"></div>
+          <ol id="resultsList" class="results-grid"></ol>
+        </div>
 
-<div class="style4" id="resultField" style="text-align:center;"><br></div>
+        <div class="results-actions">
+          <button type="button" id="rawTextBtn" class="btn btn--ghost">Copy as text</button>
+          <button type="button" id="exportImgBtn" class="btn btn--ghost">Export as image</button>
+          <button type="button" id="restartBtn" class="btn btn--primary">Sort Again</button>
+        </div>
+      </section>
+    </main>
 
-</body>
+    <dialog id="rawDialog" class="dialog">
+      <h2 class="dialog__title">Raw Text Results</h2>
+      <textarea id="rawText" class="dialog__text" readonly rows="20"></textarea>
+      <div class="dialog__actions">
+        <button type="button" id="copyBtn" class="btn btn--primary">Copy</button>
+        <button type="button" id="closeDialogBtn" class="btn btn--ghost">Close</button>
+      </div>
+    </dialog>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
 </html>

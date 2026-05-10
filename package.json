@@ -1,0 +1,21 @@
+{
+  "name": "nemophilasort",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "NEMOPHILA song sorter — sort songs head-to-head until a final ranking emerges.",
+  "scripts": {
+    "build": "npm run format && npm run format:check && npm run test",
+    "test": "node --test \"tests/**/*.test.js\"",
+    "start": "http-server -p 8000 -o",
+    "stop": "kill-port 8000",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "kill-port": "^2.0.1",
+    "prettier": "^3.8.3",
+    "prettier-plugin-multiline-arrays": "^4.1.8"
+  }
+}
