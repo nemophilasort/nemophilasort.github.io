@@ -1002,7 +1002,7 @@ progress::-moz-progress-bar {
   margin-bottom: 4px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   break-inside: avoid;
 }
 [data-view="compact"] .result-cell__img {
