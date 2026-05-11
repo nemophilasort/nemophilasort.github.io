@@ -266,12 +266,10 @@ function cardContent(card, item) {
   title.className = "card__title";
   title.textContent = item.title;
   text.append(title);
-  if (item.translation) {
-    const translation = document.createElement("span");
-    translation.className = "card__translation";
-    translation.textContent = item.translation;
-    text.append(translation);
-  }
+  const translation = document.createElement("span");
+  translation.className = "card__translation";
+  translation.textContent = item.translation || " ";
+  text.append(translation);
   const album = document.createElement("span");
   album.className = "card__album";
   album.textContent = item.album.title;
