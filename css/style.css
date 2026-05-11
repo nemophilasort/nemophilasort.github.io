@@ -996,12 +996,13 @@ progress::-moz-progress-bar {
 }
 [data-view="compact"] .result-cell {
   display: flex;
-  align-items: baseline;
-  gap: 6px;
-  padding: 3px 0;
-  background: transparent;
-  border: none;
-  border-radius: 0;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 10px;
+  margin-bottom: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
   break-inside: avoid;
 }
 [data-view="compact"] .result-cell__img {
@@ -1012,8 +1013,9 @@ progress::-moz-progress-bar {
   font-weight: 600;
   color: var(--text-dim);
   text-align: right;
-  min-width: 28px;
+  min-width: 24px;
   flex-shrink: 0;
+  padding-top: 1px;
 }
 [data-view="compact"] .result-cell__rank::after {
   content: ".";
@@ -1025,17 +1027,26 @@ progress::-moz-progress-bar {
 }
 [data-view="compact"] .result-cell__title {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
+  line-height: 1.3;
 }
 [data-view="compact"] .result-cell__album {
   display: none;
 }
 [data-view="compact"] .result-cell__translation {
-  display: none;
+  display: block;
+  font-size: 11px;
+  color: var(--text-dim);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+  margin-top: 1px;
 }
 
 /* Dialog */
