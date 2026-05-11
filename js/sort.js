@@ -13,13 +13,15 @@ export class SongSort {
     this.items = items;
     this.choices = [];
     this.total = expectedComparisons(items.length);
+    this._totalPlacements = totalPlacements(items.length);
     this._replay();
   }
 
   // Recreate the generator from scratch and feed every prior choice back into it.
   _replay() {
     this._equalData = new Map();
-    this._gen = mergeSort([...this.items.keys()], this._equalData);
+    this._stats = { placements: 0 };
+    this._gen = mergeSort([...this.items.keys()], this._equalData, this._stats);
     this._cur = this._gen.next();
     for (const c of this.choices) {
       this._cur = this._gen.next(c);
@@ -55,10 +57,15 @@ export class SongSort {
     return this.choices;
   }
 
+  // Progress is measured by items placed across all merges, not by comparisons made.
+  // A "tie" choice auto-consumes both sides (and chains through equal-links), so
+  // counting comparisons against the worst-case denominator would undershoot — an
+  // all-tie sort would only reach ~(n-1)/(n·log n). Placement count always reaches
+  // _totalPlacements when the sort completes, regardless of how many ties happen.
   progress() {
     if (this.isDone()) return 100;
-    if (this.total === 0) return 100;
-    return Math.min(100, Math.floor((this.completed * 100) / this.total));
+    if (this._totalPlacements === 0) return 100;
+    return Math.min(100, Math.floor((this._stats.placements * 100) / this._totalPlacements));
   }
 
   // side: -1 = left wins, 0 = tie, 1 = right wins.
@@ -107,18 +114,32 @@ export function expectedComparisons(n) {
   return expectedComparisons(mid) + expectedComparisons(n - mid) + (n - 1);
 }
 
-function* mergeSort(arr, equalData) {
-  if (arr.length <= 1) return arr;
-  const mid = Math.ceil(arr.length / 2);
-  const left = yield* mergeSort(arr.slice(0, mid), equalData);
-  const right = yield* mergeSort(arr.slice(mid), equalData);
-  return yield* merge(left, right, equalData);
+// Total item placements across all merges. Used as the progress denominator —
+// every out.push() in merge() increments stats.placements, and the sum reaches
+// this value when the sort completes regardless of how many ties happen.
+// M(n) = M(ceil(n/2)) + M(floor(n/2)) + n
+function totalPlacements(n) {
+  if (n <= 1) return 0;
+  const mid = Math.ceil(n / 2);
+  return totalPlacements(mid) + totalPlacements(n - mid) + n;
 }
 
-function* merge(left, right, equalData) {
+function* mergeSort(arr, equalData, stats) {
+  if (arr.length <= 1) return arr;
+  const mid = Math.ceil(arr.length / 2);
+  const left = yield* mergeSort(arr.slice(0, mid), equalData, stats);
+  const right = yield* mergeSort(arr.slice(mid), equalData, stats);
+  return yield* merge(left, right, equalData, stats);
+}
+
+function* merge(left, right, equalData, stats) {
   const out = [];
   let i = 0;
   let j = 0;
+  const place = (val) => {
+    out.push(val);
+    stats.placements++;
+  };
 
   while (i < left.length && j < right.length) {
     const choice = yield { left: left[i], right: right[j] };
@@ -127,9 +148,9 @@ function* merge(left, right, equalData) {
     // on the same side that carry an equal-link — matches the original engine's
     // behavior where a tie chain keeps flowing without re-asking the user.
     if (choice <= 0) {
-      out.push(left[i++]);
+      place(left[i++]);
       while (i < left.length && equalData.has(out[out.length - 1])) {
-        out.push(left[i++]);
+        place(left[i++]);
       }
     }
 
@@ -141,15 +162,15 @@ function* merge(left, right, equalData) {
     }
 
     if (choice >= 0) {
-      out.push(right[j++]);
+      place(right[j++]);
       while (j < right.length && equalData.has(out[out.length - 1])) {
-        out.push(right[j++]);
+        place(right[j++]);
       }
     }
   }
 
   // Drain the remainder. No auto-consume here — matches the original drain logic.
-  while (i < left.length) out.push(left[i++]);
-  while (j < right.length) out.push(right[j++]);
+  while (i < left.length) place(left[i++]);
+  while (j < right.length) place(right[j++]);
   return out;
 }
