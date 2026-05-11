@@ -9,6 +9,8 @@
   --accent: #888888;
   --accent-bloom: rgba(136, 136, 136, 0.45);
   --accent-hover: #a8a8a8;
+  --accent-bg: #4a4a4a;
+  --accent-bg-hover: #333333;
   --accent-glow: rgba(136, 136, 136, 0.32);
   --radius: 14px;
   --radius-sm: 8px;
@@ -524,13 +526,13 @@ main {
   color: var(--text);
 }
 .btn--primary {
-  background: var(--accent);
+  background: var(--accent-bg);
   color: #fff;
-  border-color: var(--accent);
+  border-color: var(--accent-bg);
 }
 .btn--primary:hover {
-  background: var(--accent-hover);
-  border-color: var(--accent-hover);
+  background: var(--accent-bg-hover);
+  border-color: var(--accent-bg-hover);
   transform: translateY(-1px);
   box-shadow: var(--shadow-glow);
 }
@@ -960,7 +962,7 @@ progress::-moz-progress-bar {
   color: var(--text);
 }
 .view-toggle__btn.is-active {
-  background: var(--accent);
+  background: var(--accent-bg);
   color: #fff;
 }
 
