@@ -407,6 +407,28 @@ test("progress is monotonically non-decreasing during a sort", () => {
   }
 });
 
+// Regression: progress() previously divided choices made by worst-case comparisons.
+// A tie auto-consumes both sides (and chains through equal-links), so an all-tie
+// sort completes in n-1 comparisons against a denominator of ~n·log(n). For n=8
+// the visible bar capped at 6/17 = 35% before the final click jumped it to 100%.
+// The placement-based metric measures total work, so ties advance the bar in
+// proportion to items placed and it climbs steadily before completion.
+test("all-tie sort: progress climbs past the comparison-only ceiling before completion", () => {
+  const items = Array.from({ length: 8 }, (_, i) => ({ id: i }));
+  const sort = new SongSort(items);
+  let maxBeforeDone = 0;
+  while (!sort.isDone()) {
+    sort.choose(0);
+    if (!sort.isDone()) {
+      maxBeforeDone = Math.max(maxBeforeDone, sort.progress());
+    }
+  }
+  assert.ok(
+    maxBeforeDone >= 50,
+    `expected progress to climb past 50% before final click; saw max ${maxBeforeDone}%`,
+  );
+});
+
 test("expectedComparisons matches recurrence T(n) = T(ceil(n/2)) + T(floor(n/2)) + (n - 1)", () => {
   assert.equal(expectedComparisons(0), 0);
   assert.equal(expectedComparisons(1), 0);
