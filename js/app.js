@@ -1,4 +1,4 @@
-import { ALBUMS, buildSongList } from "./data.js";
+import { ALBUMS, buildSongList } from "./songlist.js";
 import { SongSort } from "./sort.js";
 import * as htmlToImage from "./vendor/html-to-image.js";
 
@@ -35,8 +35,8 @@ const els = {
 let sort = null;
 let albumSort = "desc";
 
-const SINGLES = ALBUMS.filter((a) => a.single);
-const REGULAR_ALBUMS = ALBUMS.filter((a) => !a.single);
+const SINGLES = ALBUMS.filter((a) => a.isSingle);
+const REGULAR_ALBUMS = ALBUMS.filter((a) => !a.isSingle);
 const SINGLES_TILE_ID = "__singles__";
 
 // Synthetic tile that bundles all singles. Always pinned to the end of the grid.

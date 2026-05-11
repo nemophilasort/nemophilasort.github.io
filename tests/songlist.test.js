@@ -1,6 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { ALBUMS, buildSongList } from "../js/data.js";
+import { ALBUMS, buildSongList } from "../js/songlist.js";
 
 describe("ALBUMS export", () => {
   test("is a non-empty array", () => {
@@ -89,7 +89,12 @@ describe("buildSongList", () => {
         titleToAlbums.get(k).push(a);
       }
     }
-    const sharedEntry = [...titleToAlbums.entries()].find((entry) => entry[1].length > 1);
+    const sharedEntry = [...titleToAlbums.entries()].find(
+      ([
+        ,
+        list,
+      ]) => list.length > 1,
+    );
     if (!sharedEntry) {
       const a = ALBUMS[0];
       const target = a.songs[0].title;
@@ -98,7 +103,10 @@ describe("buildSongList", () => {
       assert.equal(occurrences, 1);
       return;
     }
-    const owners = sharedEntry[1];
+    const [
+      ,
+      owners,
+    ] = sharedEntry;
     const ids = new Set(owners.map((a) => a.id));
     const result = buildSongList(ids);
     const titles = result.map((s) => s.title.trim().toLowerCase());

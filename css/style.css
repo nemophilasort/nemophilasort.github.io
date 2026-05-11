@@ -12,6 +12,7 @@
   --accent-bg: #4a4a4a;
   --accent-bg-hover: #333333;
   --accent-glow: rgba(136, 136, 136, 0.32);
+  --accent-tint: rgba(136, 136, 136, 0.1);
   --radius: 14px;
   --radius-sm: 8px;
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
@@ -144,7 +145,7 @@ button {
 .official-link:hover {
   border-color: var(--accent);
   color: var(--accent);
-  background: rgba(46, 92, 184, 0.1);
+  background: var(--accent-tint);
   transform: translateY(-1px);
 }
 .official-link__logo {
@@ -233,19 +234,6 @@ main {
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
-.phase__heading::before {
-  content: "【";
-  color: var(--accent);
-  margin-right: 2px;
-  font-weight: 400;
-}
-.phase__heading::after {
-  content: "】";
-  color: var(--accent);
-  margin-left: 2px;
-  font-weight: 400;
-}
-
 .albums-header {
   display: flex;
   align-items: center;
@@ -738,6 +726,7 @@ progress::-moz-progress-bar {
   font-size: 13px;
   color: var(--text-dim);
 }
+.phase__heading::before,
 .card__album::before,
 .result-cell__album::before,
 .album-card__popover-title::before,
@@ -747,6 +736,7 @@ progress::-moz-progress-bar {
   margin-right: 2px;
   font-weight: 400;
 }
+.phase__heading::after,
 .card__album::after,
 .result-cell__album::after,
 .album-card__popover-title::after,
@@ -831,25 +821,20 @@ progress::-moz-progress-bar {
   font-weight: 800;
   background: var(--bg);
   border: 2px solid currentColor;
+  color: var(--rank-color);
 }
 .podium-card--1 {
-  border-color: #ffd24a;
+  --rank-color: #ffd24a;
+  border-color: var(--rank-color);
   box-shadow: 0 0 32px rgba(255, 210, 74, 0.18);
 }
-.podium-card--1 .podium-card__rank {
-  color: #ffd24a;
-}
 .podium-card--2 {
-  border-color: #c8c8d0;
-}
-.podium-card--2 .podium-card__rank {
-  color: #c8c8d0;
+  --rank-color: #c8c8d0;
+  border-color: var(--rank-color);
 }
 .podium-card--3 {
-  border-color: #d28a55;
-}
-.podium-card--3 .podium-card__rank {
-  color: #d28a55;
+  --rank-color: #d28a55;
+  border-color: var(--rank-color);
 }
 
 .podium-card__img {
