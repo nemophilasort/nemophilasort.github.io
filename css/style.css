@@ -450,6 +450,12 @@ main {
     display: none;
   }
 }
+@media (max-width: 600px) {
+  .album-card__meta {
+    align-items: center;
+    text-align: center;
+  }
+}
 
 /* Sticky action footer for the album-select phase. Pinned to the viewport bottom so
    the Start button is always reachable, no matter how the last row of tiles fills out. */
@@ -645,7 +651,7 @@ progress::-moz-progress-bar {
     padding: 10px;
     gap: 12px;
     flex-direction: row;
-    text-align: left;
+    text-align: center;
     align-items: center;
   }
   .card__img {
@@ -655,7 +661,8 @@ progress::-moz-progress-bar {
   }
   .card__text {
     gap: 2px;
-    align-items: flex-start;
+    align-items: center;
+    flex: 1;
   }
   .card__title {
     font-size: 14px;
