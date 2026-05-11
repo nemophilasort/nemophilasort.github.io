@@ -729,6 +729,24 @@ progress::-moz-progress-bar {
   font-size: 13px;
   color: var(--text-dim);
 }
+.card__album::before,
+.result-cell__album::before,
+.album-card__popover-title::before,
+[data-view="detailed"] .podium-card__album::before {
+  content: "【";
+  color: var(--accent);
+  margin-right: 2px;
+  font-weight: 400;
+}
+.card__album::after,
+.result-cell__album::after,
+.album-card__popover-title::after,
+[data-view="detailed"] .podium-card__album::after {
+  content: "】";
+  color: var(--accent);
+  margin-left: 2px;
+  font-weight: 400;
+}
 
 .cards__middle {
   display: flex;
