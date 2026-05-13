@@ -1101,3 +1101,14 @@ progress::-moz-progress-bar {
   gap: 10px;
   justify-content: flex-end;
 }
+
+.results-attribution {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+.results-attribution a {
+  color: inherit;
+  text-decoration: underline;
+}

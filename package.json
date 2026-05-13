@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "NEMOPHILA song sorter — sort songs head-to-head until a final ranking emerges.",
+  "description": "NEMOPHILA song sorter, sort songs head-to-head until a final ranking emerges.",
   "scripts": {
     "build": "npm run format && npm run format:check && npm run test",
     "test": "node --test \"tests/**/*.test.js\"",

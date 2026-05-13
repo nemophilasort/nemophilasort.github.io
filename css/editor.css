@@ -1,0 +1,268 @@
+/* Catalog editor (editor.html). Loaded alongside style.css; rules here are
+   editor-exclusive, anything reusable lives in style.css. */
+
+/* Override style.css's `.phase__intro` (which forces nowrap above 760px), the
+   editor's intro is multi-sentence and must wrap at all viewport widths. */
+.phase-header .phase__intro {
+  white-space: normal;
+  max-width: 70ch;
+}
+
+code {
+  background: var(--surface-2);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.92em;
+}
+
+.editor__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+}
+.editor__status {
+  margin-left: auto;
+  margin-right: 8px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+.editor__status[data-tone="ok"] {
+  color: var(--accent-hover);
+}
+.editor__status[data-tone="error"] {
+  color: #f47171;
+}
+
+.editor__grid {
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) 1fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .editor__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.editor__sidebar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  position: sticky;
+  top: 16px;
+}
+.editor-sidebar__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.editor-sidebar__header .phase__heading {
+  margin: 0;
+}
+.editor__hint {
+  color: var(--text-dim);
+  font-size: 13px;
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.editor-album-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.editor-album-list__item {
+  display: block;
+}
+.editor-album-list__button {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  color: var(--text);
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 2px 8px;
+  transition:
+    border-color var(--duration) var(--easing),
+    background var(--duration) var(--easing);
+}
+.editor-album-list__button:hover {
+  border-color: var(--accent);
+  background: var(--surface-2);
+}
+.editor-album-list__item.is-selected .editor-album-list__button {
+  border-color: var(--accent);
+  background: var(--accent-tint);
+}
+.editor-album-list__title {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.3;
+  grid-column: 1;
+  word-break: break-word;
+}
+.editor-album-list__meta {
+  font-size: 12px;
+  color: var(--text-dim);
+  grid-column: 1;
+}
+.editor-album-list__tag {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-tint);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.editor__pane {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.editor-pane__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.editor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.editor-form__row {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 16px;
+}
+@media (max-width: 600px) {
+  .editor-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+.editor-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.editor-form__label {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+}
+.editor-form__hint {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 12px;
+  color: var(--text-dim);
+  opacity: 0.8;
+}
+.editor-form__input {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font: inherit;
+  width: 100%;
+  transition: border-color var(--duration) var(--easing);
+}
+.editor-form__input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.editor-form__fieldset {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+}
+.editor-form__fieldset > .editor-form__label {
+  padding: 0 4px;
+}
+
+.editor-songs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.editor-song-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 36px;
+  gap: 8px;
+}
+@media (max-width: 600px) {
+  .editor-song-row {
+    grid-template-columns: 1fr 36px;
+  }
+  .editor-song-row__translation {
+    grid-column: 1 / span 2;
+    order: 2;
+  }
+  .editor-song-row__remove {
+    order: 3;
+  }
+}
+.editor-song-row__remove {
+  padding: 0;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.editor__footer {
+  margin-top: 32px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+.editor__footer summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+.editor__steps {
+  list-style: decimal;
+  padding-left: 24px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text-dim);
+  line-height: 1.55;
+}

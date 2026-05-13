@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src 'self'; base-uri 'self'"
+    />
+    <title>NEMOPHILA Catalog Editor</title>
+    <meta name="description" content="Edit the NEMOPHILA song sorter catalog in your browser and download a fresh songlist.json." />
+    <meta name="theme-color" content="#888888" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/editor.css" />
+    <link rel="icon" href="img/favicon.ico" />
+    <link rel="apple-touch-icon" href="img/favicon.png" />
+  </head>
+  <body>
+    <main>
+      <header class="phase-header">
+        <div class="phase-header__text">
+          <h1 class="phase__title">Catalog Editor</h1>
+          <p class="phase__intro">
+            Edit your sorter's albums and songs without touching any code. Your current catalog loads automatically. Make changes, then
+            download the updated <code>songlist.json</code> and save it back to your repo.
+          </p>
+        </div>
+        <a class="official-link" href="index.html">
+          <span class="official-link__label">← Back to Sorter</span>
+        </a>
+      </header>
+
+      <section class="editor__toolbar">
+        <span id="status" class="editor__status" aria-live="polite"></span>
+        <button type="button" id="downloadBtn" class="btn btn--primary" disabled>Download songlist.json</button>
+      </section>
+
+      <div class="editor__grid">
+        <aside class="editor__sidebar">
+          <div class="editor-sidebar__header">
+            <h2 class="phase__heading">Albums</h2>
+            <button type="button" id="addAlbumBtn" class="btn btn--ghost btn--small">+ Add album</button>
+          </div>
+          <ol id="albumList" class="editor-album-list" aria-label="Album list"></ol>
+          <p id="emptyHint" class="editor__hint" hidden>No albums yet, click <strong>+ Add album</strong> to start fresh.</p>
+        </aside>
+
+        <section class="editor__pane" id="editorPane" hidden>
+          <header class="editor-pane__header">
+            <h2 class="phase__heading">Edit album</h2>
+            <button type="button" id="deleteAlbumBtn" class="btn btn--ghost btn--small">Delete album</button>
+          </header>
+
+          <form id="albumForm" class="editor-form" autocomplete="off">
+            <div class="editor-form__row">
+              <label class="editor-form__field">
+                <span class="editor-form__label">Album title</span>
+                <input type="text" name="title" required class="editor-form__input" />
+              </label>
+              <label class="editor-form__field">
+                <span class="editor-form__label">Year</span>
+                <input type="number" name="year" min="1900" max="2100" required class="editor-form__input" />
+              </label>
+            </div>
+
+            <fieldset class="editor-form__fieldset">
+              <legend class="editor-form__label">Type</legend>
+              <label class="checkbox">
+                <input type="checkbox" name="isSingle" />
+                <span>This is a single (bundles into the "Singles" tile)</span>
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="isCover" />
+                <span>This is a cover (bundles into the "Covers" tile)</span>
+              </label>
+            </fieldset>
+
+            <label class="editor-form__field">
+              <span class="editor-form__label">
+                Cover image filename
+                <span class="editor-form__hint">the file you'll upload to <code>img/albums/</code> in your repo</span>
+              </span>
+              <input type="text" name="coverFilename" class="editor-form__input" placeholder="MyAlbum.jpg" />
+            </label>
+
+            <div class="editor-form__field">
+              <span class="editor-form__label">
+                Songs
+                <span class="editor-form__hint">in track order, translations are optional</span>
+              </span>
+              <ol id="songRows" class="editor-songs"></ol>
+              <button type="button" id="addSongBtn" class="btn btn--ghost btn--small">+ Add song</button>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <footer class="editor__footer">
+        <details>
+          <summary>How to publish your changes</summary>
+          <ol class="editor__steps">
+            <li>Click <strong>Download songlist.json</strong>. Your browser will save the file.</li>
+            <li>
+              Overwrite the existing <code>songlist.json</code> file in your <code>js</code> folder with the new file
+            </li>
+            <li>
+              For any new album covers, navigate into <code>img/albums/</code> and upload each image with the exact filename shown in the
+              editor (case-sensitive).
+            </li>
+          </ol>
+        </details>
+      </footer>
+    </main>
+
+    <template id="songRowTemplate">
+      <li class="editor-song-row">
+        <input type="text" class="editor-form__input editor-song-row__title" placeholder="Song title" />
+        <input type="text" class="editor-form__input editor-song-row__translation" placeholder="Translation (optional)" />
+        <button type="button" class="btn btn--ghost btn--small editor-song-row__remove" aria-label="Remove song">×</button>
+      </li>
+    </template>
+
+    <script type="module" src="js/editor.js"></script>
+  </body>
+</html>

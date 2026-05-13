@@ -330,7 +330,7 @@ test("undo through a tie clears the equal link", () => {
   );
   sort.undo(); // undo the C-win
   sort.undo(); // undo the tie
-  // Re-do without ties: A>B, A>C, B>C — three comparisons for [A,B,C].
+  // Re-do without ties: A>B, A>C, B>C, three comparisons for [A,B,C].
   sort.choose(-1);
   sort.choose(-1);
   sort.choose(-1);

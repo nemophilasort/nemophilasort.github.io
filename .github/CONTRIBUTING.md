@@ -31,21 +31,6 @@ The site uses ES modules, which require an HTTP server (won't work via `file://`
 
 `npm test` will catch most data-shape regressions before you push: missing required fields on an album entry, non-unique album ids, malformed song objects, broken `buildSongList` dedup, sort-engine misbehavior, etc. If you change anything in `js/data.js` or `js/sort.js`, run it.
 
-## Verifying your data
-
-A quick sanity check from the command line:
-
-```bash
-node --input-type=module -e "
-import { ALBUMS, buildSongList } from './js/data.js';
-console.log(ALBUMS.length, 'albums');
-console.log(ALBUMS.reduce((n, a) => n + a.songs.length, 0), 'songs total');
-for (const a of ALBUMS) console.log(a.year ?? '----', '-', a.title, '(' + a.songs.length + ' songs)' + (a.single ? ' [single]' : ''));
-"
-```
-
-If the script throws an error, you have a syntax issue in `data.js`, usually a missing comma or unclosed quote.
-
 ## Image sizes
 
 When adding new cover art or photos, target these dimensions. The site already displays at much smaller sizes, so larger sources just waste bandwidth.

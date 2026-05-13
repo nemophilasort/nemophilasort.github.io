@@ -59,7 +59,7 @@ export class SongSort {
 
   // Progress is measured by items placed across all merges, not by comparisons made.
   // A "tie" choice auto-consumes both sides (and chains through equal-links), so
-  // counting comparisons against the worst-case denominator would undershoot — an
+  // counting comparisons against the worst-case denominator would undershoot, an
   // all-tie sort would only reach ~(n-1)/(n·log n). Placement count always reaches
   // _totalPlacements when the sort completes, regardless of how many ties happen.
   progress() {
@@ -114,7 +114,7 @@ export function expectedComparisons(n) {
   return expectedComparisons(mid) + expectedComparisons(n - mid) + (n - 1);
 }
 
-// Total item placements across all merges. Used as the progress denominator —
+// Total item placements across all merges. Used as the progress denominator ,
 // every out.push() in merge() increments stats.placements, and the sum reaches
 // this value when the sort completes regardless of how many ties happen.
 // M(n) = M(ceil(n/2)) + M(floor(n/2)) + n
@@ -145,7 +145,7 @@ function* merge(left, right, equalData, stats) {
     const choice = yield { left: left[i], right: right[j] };
 
     // Consume the winner (or both, on tie) and auto-consume any subsequent items
-    // on the same side that carry an equal-link — matches the original engine's
+    // on the same side that carry an equal-link, matches the original engine's
     // behavior where a tie chain keeps flowing without re-asking the user.
     if (choice <= 0) {
       place(left[i++]);
@@ -156,7 +156,7 @@ function* merge(left, right, equalData, stats) {
 
     // On tie, link the *last consumed* left item to the current right item.
     // This must happen after the auto-consume above, otherwise we'd overwrite
-    // a link we still need for traversal — and chains like A→B→C wouldn't form.
+    // a link we still need for traversal, and chains like A→B→C wouldn't form.
     if (choice === 0) {
       equalData.set(out[out.length - 1], right[j]);
     }
@@ -169,7 +169,7 @@ function* merge(left, right, equalData, stats) {
     }
   }
 
-  // Drain the remainder. No auto-consume here — matches the original drain logic.
+  // Drain the remainder. No auto-consume here, matches the original drain logic.
   while (i < left.length) place(left[i++]);
   while (j < right.length) place(right[j++]);
   return out;

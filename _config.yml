@@ -1,0 +1,5 @@
+# Exclude these files from being published to GitHub pages
+exclude:
+  - editor.html
+  - css/editor.css
+  - js/editor.js
