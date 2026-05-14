@@ -11,8 +11,8 @@ describe("ALBUMS export", () => {
   test("is sorted by year ascending", () => {
     for (let i = 1; i < ALBUMS.length; i++) {
       assert.ok(
-        ALBUMS[i - 1].year <= ALBUMS[i].year,
-        `out of order: ${ALBUMS[i - 1].title} (${ALBUMS[i - 1].year}) vs ${ALBUMS[i].title} (${ALBUMS[i].year})`,
+          ALBUMS[i - 1].year <= ALBUMS[i].year,
+          `out of order: ${ALBUMS[i - 1].title} (${ALBUMS[i - 1].year}) vs ${ALBUMS[i].title} (${ALBUMS[i].year})`,
       );
     }
   });
@@ -80,7 +80,7 @@ describe("buildSongList", () => {
     }
   });
 
-  test("dedupes duplicate titles across selected albums (first occurrence wins)", () => {
+  test("dedupes duplicate titles across selected albums (newest album wins)", () => {
     const titleToAlbums = new Map();
     for (const a of ALBUMS) {
       for (const song of a.songs) {
@@ -90,10 +90,10 @@ describe("buildSongList", () => {
       }
     }
     const sharedEntry = [...titleToAlbums.entries()].find(
-      ([
-        ,
-        list,
-      ]) => list.length > 1,
+        ([
+           ,
+           list,
+         ]) => list.length > 1,
     );
     if (!sharedEntry) {
       const a = ALBUMS[0];
@@ -120,14 +120,14 @@ describe("buildSongList", () => {
     assert.equal(new Set(keys).size, keys.length, "every result song's dedup key is unique");
   });
 
-  test("respects album sort order (year ascending) when emitting songs", () => {
+  test("emits songs in album year-descending order (newest first)", () => {
     const ids = new Set(ALBUMS.map((a) => a.id));
     const songs = buildSongList(ids);
-    assert.equal(songs[0].album, ALBUMS[0]);
+    assert.equal(songs[0].album, ALBUMS[ALBUMS.length - 1]);
     for (let i = 1; i < songs.length; i++) {
       assert.ok(
-        songs[i - 1].album.year <= songs[i].album.year,
-        `year order broken at index ${i}: ${songs[i - 1].album.year} > ${songs[i].album.year}`,
+          songs[i - 1].album.year >= songs[i].album.year,
+          `year order broken at index ${i}: ${songs[i - 1].album.year} < ${songs[i].album.year}`,
       );
     }
   });
