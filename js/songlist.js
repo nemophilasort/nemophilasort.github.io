@@ -4,13 +4,15 @@ import RAW_ALBUMS from "./songlist.json" with { type: "json" };
 export const ALBUMS = [...RAW_ALBUMS].sort((a, b) => a.year - b.year);
 
 // Flatten the selected albums' tracklists into a deduped, sort-ready song list.
-// Dedup key is `title` lowercased and trimmed; the first occurrence (by album year
-// ascending, see ALBUMS export) wins. Each entry carries a back-reference to its
-// source album so the UI can render album titles / cover art alongside the song.
+// Dedup key is `title` lowercased and trimmed; the newest album wins (we walk
+// ALBUMS in reverse so the first occurrence we see is from the latest year).
+// Each entry carries a back-reference to its source album so the UI can render
+// album titles / cover art alongside the song.
 export function buildSongList(selectedAlbumIds) {
   const songs = [];
   const seen = new Set();
-  for (const album of ALBUMS) {
+  for (let i = ALBUMS.length - 1; i >= 0; i--) {
+    const album = ALBUMS[i];
     if (!selectedAlbumIds.has(album.id)) continue;
     for (const song of album.songs) {
       const key = song.title.trim().toLowerCase();
